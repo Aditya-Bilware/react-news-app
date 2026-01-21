@@ -8,12 +8,10 @@ const NewsContextProvider = ({ children }) => {
 
   const [loading, setLoading] = useState(true);
 
-  const fetchNews = async (url = "/search?q=Google") => {
+  const fetchNews = async (endpoint) => {
     setLoading(true);
     try {
-      const response = await api.get(
-        `${url}&token=${import.meta.env.VITE_GNEWS_API_KEY}`,
-      );
+      const response = await api.get(`/news?endpoint=${endpoint}`);
       setLoading(false);
       return response.data;
     } catch (error) {

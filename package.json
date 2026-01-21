@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://aditya-bilware.github.io/NewsApp",
+  "homepage": "https://aditya-bilware.github.io/react-news-app",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

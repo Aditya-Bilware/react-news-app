@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Wrapper from "./Wrapper";
 
 import { useNewsContext } from "../contexts/NewsContext";
 import SkeletonCard from "./SkeletonCard";
 const News = ({ search }) => {
   const { news, setNews, fetchNews, loading } = useNewsContext();
+
+  const [page, setPage] = useState(1);
 
   // console.log(news);
   // loads data on initial render
@@ -13,17 +15,19 @@ const News = ({ search }) => {
       let endpoint;
 
       if (search === null) {
-        endpoint = "/top-headlines?lang=en&country=in&max=20";
+        endpoint = `/top-headlines?lang=en&country=in&max=20&page=${page}`;
       } else {
-        endpoint = `/search?q=${search}&lang=en&max=20`;
+        endpoint = `/search?q=${search}&lang=en&max=20&page=${page}`;
       }
 
       const data = await fetchNews(endpoint);
-      setNews(Array.isArray(data?.articles) ? data.articles : []);
+      setNews((prev) =>
+        page === 1 ? data.articles : [...prev, ...data.articles],
+      );
     };
-
+    // setPage(1);
     loadNews();
-  }, [search]);
+  }, [search, page]);
 
   if (loading) {
     return (
@@ -50,6 +54,12 @@ const News = ({ search }) => {
           ))}
         </div>
       </div>
+      <button
+        className="btn btn-outline-primary px-4 py-2 mt-4 d-block mx-auto mb-5 fw-bold"
+        onClick={() => setPage((p) => p + 1)}
+      >
+        Load more
+      </button>
     </Wrapper>
   );
 };
