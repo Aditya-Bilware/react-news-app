@@ -41,7 +41,7 @@ const Category = ({ className }) => {
     <div className={`${className} bg-base`}>
       <Wrapper>
         <div
-          className={`d-flex justify-content-center overflow-auto px-4 gap-5 no-scrollbar `}
+          className={`d-flex justify-content-start overflow-auto px-4 ps-5 gap-5 no-scrollbar `}
         >
           {categories.map((category) => (
             <button
